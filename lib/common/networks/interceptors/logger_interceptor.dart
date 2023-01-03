@@ -6,7 +6,7 @@ import 'package:manga_reader/common/environments/app_env.dart';
 void printEnv(Object? object) {
   var logPrint = print;
 
-  if (AppEnv.I.logger) {
+  if (AppEnv.logger) {
     logPrint(object);
   }
 }
@@ -56,7 +56,7 @@ class LoggerInterceptor extends Interceptor {
     this.error = true,
     this.maxWidth = 90,
     this.compact = true,
-    this.logPrint = printEnv,
+    this.logPrint = print,
   });
 
   @override

@@ -11,7 +11,10 @@ class NetworkInterceptor extends Interceptor {
     if (await NetworkConnection.call()) {
       handler.next(options);
     } else {
-      handler.reject(ConnectionException());
+      handler.reject(DioError(
+        requestOptions: options,
+        error: ConnectionException(),
+      ));
     }
   }
 }

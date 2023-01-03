@@ -1,70 +1,57 @@
+import 'package:manga_reader/common/environments/app_data.dart';
 import 'package:manga_reader/common/environments/app_flavor.dart';
 
 class AppEnv {
-  String get appFlavor => 'dev';
+  static AppFlavor get flavor => AppFlavor(AppData.appFlavor);
 
-  String get appLogger => 'true';
+  static String get language => AppData.appLanguage;
 
-  String get appLanguage => 'vi';
+  static String get currency => AppData.appCurrency;
 
-  String get appCurrency => 'vnd';
+  static String get dateFormat => AppData.appDateFormat;
 
-  String get appDateFormat => 'dd/MM/yyyy';
+  static String get uuid => AppData.appUUID;
 
-  String get appSendTimeOut => '6000';
+  static bool get logger => AppData.appLogger;
 
-  String get appReceiveTimeOut => '6000';
+  static int get sendTimeOut => AppData.appSendTimeOut;
 
-  String get appConnectTimeOut => '6000';
+  static int get receiveTimeOut => AppData.appReceiveTimeOut;
 
-  // ===========================================================================
-  // ===========================================================================
+  static int get connectTimeOut => AppData.appConnectTimeOut;
 
-  AppEnv._();
+  static String getKey(String key) {
+    var value = AppData.appKeys[_convertKey(key)];
+    if (value == null) {
+      return AppData.appKeys[key] ?? '';
+    } else {
+      return value;
+    }
+  }
 
-  static final AppEnv _instance = AppEnv._();
+  static String getPath(String key) {
+    var value = AppData.appPaths[_convertKey(key)];
+    if (value == null) {
+      return AppData.appPaths[key] ?? '';
+    } else {
+      return value;
+    }
+  }
 
-  static AppEnv get I => _instance;
+  static String getExtra(String key) {
+    var value = AppData.appExtras[_convertKey(key)];
+    if (value == null) {
+      return AppData.appExtras[key] ?? '';
+    } else {
+      return value;
+    }
+  }
 
-  Map<String, String> get appPaths => flavor.when(
-        onDev: () => {},
-        onLive: () => {},
-        onStaging: () => {},
-      );
-
-  Map<String, String> get appKeys => flavor.when(
-        onDev: () => {},
-        onLive: () => {},
-        onStaging: () => {},
-      );
-
-  Map<String, String> get appExtras => flavor.when(
-        onDev: () => {},
-        onLive: () => {},
-        onStaging: () => {},
-      );
-
-  AppFlavor get flavor => AppFlavor(appFlavor);
-
-  bool get logger => appLogger == 'true';
-
-  String get language => appLanguage;
-
-  String get currency => appCurrency;
-
-  String get dateFormat => appDateFormat;
-
-  String get uuid => hashCode.toString();
-
-  String getKey(String key) => appKeys[key] ?? '';
-
-  String getPath(String key) => appPaths[key] ?? '';
-
-  String getExtra(String key) => appExtras[key] ?? '';
-
-  int get sendTimeOut => int.parse(appSendTimeOut);
-
-  int get receiveTimeOut => int.parse(appReceiveTimeOut);
-
-  int get connectTimeOut => int.parse(appConnectTimeOut);
+  static String _convertKey(String key) {
+    return flavor.when(
+      onDev: () => '${key}_dev',
+      onLive: () => '${key}_live',
+      onStaging: () => '${key}_staging',
+    );
+  }
 }

@@ -3,14 +3,6 @@ import 'package:manga_reader/common/exceptions/app_exception.dart';
 class DataResponse<TResponse> {
   DataResponse._();
 
-  factory DataResponse.success({
-    required TResponse response,
-  }) = DataSuccess;
-
-  factory DataResponse.failure({
-    required AppException exception,
-  }) = DataFailure;
-
   dynamic get self => this;
 
   bool get isFailure => runtimeType == DataFailure<TResponse>;
@@ -32,9 +24,6 @@ class DataResponse<TResponse> {
     }
   }
 }
-
-// ===========================================================================//
-// ===========================================================================//
 
 class DataSuccess<TResponse> extends DataResponse<TResponse> {
   final TResponse response;

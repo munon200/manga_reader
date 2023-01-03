@@ -13,20 +13,25 @@ Future<DataResponse<T>> runNetworkGuarded<T>(
   AppException exception;
 
   try {
-    return DataResponse.success(
+    return DataSuccess(
       response: await run(),
     );
-  } on ConnectionException catch (_) {
-    exception = ConnectionException();
   } on FormatException catch (_) {
     exception = ParserException();
   } on DioError catch (_) {
-    exception = NetworkException();
+    switch (_.error.runtimeType) {
+      case ConnectionException:
+        exception = ConnectionException();
+        break;
+      default:
+        exception = NetworkException();
+        break;
+    }
   } catch (_) {
     exception = AppException();
   }
 
-  return DataResponse.failure(
+  return DataFailure(
     exception: exception,
   );
 }

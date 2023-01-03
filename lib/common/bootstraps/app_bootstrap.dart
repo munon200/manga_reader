@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:manga_reader/common/injections/app_injection.dart';
 import 'package:manga_reader/common/injections/resolver/feature_injection.dart';
-import 'package:manga_reader/common/injections/resolver/feature_resolver.dart';
+import 'package:manga_reader/common/injections/feature_injection.dart';
 
 class AppBootstrap {
   AppBootstrap._();
 
   static Future<void> start({
+
     required Function(GenerateRoute) builder,
     List<FeatureInjection>? featureInjections,
-    List<FeatureResolver>? featureResolves,
+    List<FeatureInjection>? featureResolves,
   }) async {
-    /*
-    * Init widget binding of Flutter
-    * */
     WidgetsFlutterBinding.ensureInitialized();
 
-    /*
-    * Register dependency
-    * */
+    // Register dependencies
     if (featureInjections != null) {
       for (var moduleInjection in featureInjections) {
         await moduleInjection.dependencies(
@@ -27,9 +23,7 @@ class AppBootstrap {
       }
     }
 
-    /*
-    * Register dependency and get route of module
-    * */
+    // Register and get generate route
     List<GenerateRoute> routeGenerates = [];
     if (featureResolves != null) {
       for (var featureResolver in featureResolves) {
@@ -41,9 +35,7 @@ class AppBootstrap {
       }
     }
 
-    /*
-    * Generate function [onGenerate]
-    * */
+    // Merger generate route
     Route? onGenerate(settings) {
       for (var generate in routeGenerates) {
         Route? route = generate(settings);
@@ -54,9 +46,7 @@ class AppBootstrap {
       return null;
     }
 
-    /*
-    * Start app with config
-    * */
+    // Start app
     runApp(builder(
       onGenerate,
     ));

@@ -3,9 +3,7 @@ import 'package:get_it/get_it.dart';
 class AppInjection {
   AppInjection._();
 
-  static final AppInjection _instance = AppInjection._();
-
-  static AppInjection get I => _instance;
+  static final AppInjection I = AppInjection._();
 
   T get<T extends Object>({
     String? instanceName,
@@ -128,10 +126,6 @@ class AppInjection {
       );
     }
   }
-
-  /*
-  * Checked register
-  * */
 
   bool canRegister<T extends Object>({
     Object? instance,
