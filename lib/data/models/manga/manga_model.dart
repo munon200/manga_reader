@@ -1,5 +1,5 @@
-import 'package:manga_reader/data/models/manga/category_model.dart';
-import 'package:manga_reader/data/models/manga/chapter_model.dart';
+import 'package:manga_reader/domain/entities/manga/category_entity.dart';
+import 'package:manga_reader/domain/entities/manga/chapter_entity.dart';
 
 class MangaModel {
   final String id;
@@ -8,6 +8,8 @@ class MangaModel {
   final String author;
   final String status;
   final String description;
+  final List<ChapterEntity> chapters;
+  final List<CategoryEntity> categories;
 
   const MangaModel({
     required this.id,
@@ -16,6 +18,8 @@ class MangaModel {
     required this.author,
     required this.status,
     required this.description,
+    required this.chapters,
+    required this.categories,
   });
 
   MangaModel copyWith({
@@ -25,6 +29,8 @@ class MangaModel {
     String? author,
     String? status,
     String? description,
+    List<ChapterEntity>? chapters,
+    List<CategoryEntity>? categories,
   }) {
     return MangaModel(
       id: id ?? this.id,
@@ -33,6 +39,8 @@ class MangaModel {
       author: author ?? this.author,
       status: status ?? this.status,
       description: description ?? this.description,
+      chapters: chapters ?? this.chapters,
+      categories: categories ?? this.categories,
     );
   }
 
@@ -44,6 +52,8 @@ class MangaModel {
       'author': author,
       'status': status,
       'description': description,
+      'chapters': chapters,
+      'categories': categories,
     };
   }
 
@@ -55,6 +65,8 @@ class MangaModel {
       author: map['author'] as String,
       status: map['status'] as String,
       description: map['description'] as String,
+      chapters: map['chapters'] as List<ChapterEntity>,
+      categories: map['categories'] as List<CategoryEntity>,
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:manga_reader/common/networks/network_creator.dart';
 
-class GatewayClient {
-  Dio client = NetworkCreator.create(
+class ClientManager {
+  static final Dio gateway = NetworkCreator.create(
     baseUrl: 'http://google.com',
   );
 }

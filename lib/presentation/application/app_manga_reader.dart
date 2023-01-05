@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader/common/injections/feature_injection.dart';
+import 'package:manga_reader/common/injections/app_register.dart';
+import 'package:manga_reader/presentation/themes/app_theme.dart';
 
 class AppMangaReader extends StatelessWidget {
   final String initRoute;
@@ -15,6 +16,9 @@ class AppMangaReader extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: initRoute,
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.light,
       onGenerateRoute: generateRoute,
     );
   }

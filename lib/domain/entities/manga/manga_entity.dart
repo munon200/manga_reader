@@ -8,6 +8,8 @@ class MangaEntity {
   final String author;
   final String status;
   final String description;
+  final List<ChapterEntity> chapters;
+  final List<CategoryEntity> categories;
 
   const MangaEntity({
     required this.id,
@@ -16,6 +18,8 @@ class MangaEntity {
     required this.author,
     required this.status,
     required this.description,
+    required this.chapters,
+    required this.categories,
   });
 
   MangaEntity copyWith({
@@ -25,8 +29,8 @@ class MangaEntity {
     String? author,
     String? status,
     String? description,
-    List<CategoryEntity>? categories,
     List<ChapterEntity>? chapters,
+    List<CategoryEntity>? categories,
   }) {
     return MangaEntity(
       id: id ?? this.id,
@@ -35,6 +39,8 @@ class MangaEntity {
       author: author ?? this.author,
       status: status ?? this.status,
       description: description ?? this.description,
+      chapters: chapters ?? this.chapters,
+      categories: categories ?? this.categories,
     );
   }
 
@@ -46,6 +52,8 @@ class MangaEntity {
       'author': author,
       'status': status,
       'description': description,
+      'chapters': chapters,
+      'categories': categories,
     };
   }
 
@@ -57,6 +65,8 @@ class MangaEntity {
       author: map['author'] as String,
       status: map['status'] as String,
       description: map['description'] as String,
+      chapters: map['chapters'] as List<ChapterEntity>,
+      categories: map['categories'] as List<CategoryEntity>,
     );
   }
 }
